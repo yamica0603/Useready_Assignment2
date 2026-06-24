@@ -1,148 +1,296 @@
-Power System Load Type Prediction
-Overview
-This project focuses on predicting the operational load category of a power system using historical energy consumption data. The objective is to classify power usage into one of the following categories:
-·      Light_Load
-·      Medium_Load
-·      Maximum_Load
-The solution follows a complete machine learning workflow, including data preprocessing, exploratory data analysis (EDA), feature engineering, model training, hyperparameter tuning, and model evaluation.
+# ⚡ Power System Load Type Prediction
 
-Problem Statement
-Power systems experience varying load patterns throughout the day and across seasons. Accurately predicting the load category can help optimize energy distribution, improve resource planning, and support efficient power management.
-Given historical measurements such as energy consumption, reactive power, power factor, CO₂ emissions, and time information, the goal is to build a classification model that predicts the corresponding load type.
+## 📌 Project Overview
 
-Dataset Description
-The dataset contains operational measurements collected from an industrial power system.
-Features
-Feature
-Description
-Date_Time
-Timestamp of observation
-Usage_kWh
-Energy consumption (kWh)
-Lagging_Current_Reactive.Power_kVarh
-Lagging reactive power
-Leading_Current_Reactive_Power_kVarh
-Leading reactive power
-CO2(tCO2)
-CO₂ emissions
-Lagging_Current_Power_Factor
-Lagging power factor
-Leading_Current_Power_Factor
-Leading power factor
-NSM
-Number of Seconds from Midnight
-Load_Type
-Target variable
-Target Classes
-·      Light_Load
-·      Medium_Load
-·      Maximum_Load
+This project develops a Machine Learning classification model to predict the **Load Type** of a power system based on historical energy consumption and electrical measurements.
 
-Project Workflow
-1. Data Preprocessing
-The following preprocessing steps were performed:
-·      Converted timestamp column to datetime format
-·      Checked and handled missing values
-·      Verified data quality and consistency
-·      Encoded target labels for model training
-·      Applied feature scaling where required
+The target classes are:
 
-2. Exploratory Data Analysis (EDA)
-EDA was conducted to understand data characteristics and identify patterns.
-Analysis included:
-·      Class distribution analysis
-·      Feature correlation analysis
-·      Statistical summaries
-·      Temporal trend visualization
-·      Distribution plots for numerical variables
-Key observations helped guide feature engineering and model selection.
+* **Light_Load**
+* **Medium_Load**
+* **Maximum_Load**
 
-3. Feature Engineering
-To improve model performance, several domain-inspired and temporal features were created.
-Temporal Features
-·      Hour of day
-·      Month
-·      Weekend indicator
-Cyclical Encoding
-Time-related variables are cyclical in nature. For example, 23:00 and 00:00 are only one hour apart but appear numerically distant.
+The solution follows a complete Machine Learning pipeline including:
+
+* Data Preprocessing
+* Exploratory Data Analysis (EDA)
+* Feature Engineering
+* Model Training
+* Hyperparameter Tuning
+* Model Evaluation
+* Prediction and Interpretation
+
+---
+
+# 🎯 Objective
+
+The objective is to accurately classify the operating load condition of a power system using historical power consumption data and electrical characteristics.
+
+Accurate load classification can help in:
+
+* Energy management
+* Load balancing
+* Resource optimization
+* Demand forecasting
+* Power system monitoring
+
+---
+
+# 📂 Dataset Description
+
+The dataset contains measurements collected from an industrial power system.
+
+| Feature                              | Description                     |
+| ------------------------------------ | ------------------------------- |
+| Date_Time                            | Timestamp of observation        |
+| Usage_kWh                            | Energy consumption in kWh       |
+| Lagging_Current_Reactive.Power_kVarh | Lagging reactive power          |
+| Leading_Current_Reactive_Power_kVarh | Leading reactive power          |
+| CO2(tCO2)                            | Carbon dioxide emissions        |
+| Lagging_Current_Power_Factor         | Lagging power factor            |
+| Leading_Current_Power_Factor         | Leading power factor            |
+| NSM                                  | Number of seconds from midnight |
+| Load_Type                            | Target variable                 |
+
+### Target Classes
+
+* Light_Load
+* Medium_Load
+* Maximum_Load
+
+---
+
+# 🛠️ Technologies Used
+
+### Programming Language
+
+* Python 3.x
+
+### Libraries
+
+* Pandas
+* NumPy
+* Matplotlib
+* Seaborn
+* Scikit-Learn
+* XGBoost
+* Joblib
+
+### Development Environment
+
+* Jupyter Notebook
+
+---
+
+# 📊 Exploratory Data Analysis (EDA)
+
+EDA was performed to understand the dataset and identify patterns affecting load type.
+
+The following analyses were conducted:
+
+* Dataset shape and structure
+* Missing value analysis
+* Target class distribution
+* Feature distributions
+* Correlation analysis
+* Time-based consumption trends
+* Statistical summaries
+
+---
+
+# ⚙️ Feature Engineering
+
+Feature engineering was applied to improve model performance and capture temporal patterns.
+
+## 1. Cyclical Time Encoding
+
+Time-based variables are cyclical in nature.
+
+For example:
+
+* 23:00 and 00:00 are only one hour apart
+* December and January are consecutive months
+
 To preserve this relationship:
-·      hour_sin
-·      hour_cos
-·      month_sin
-·      month_cos
-were generated using sine and cosine transformations.
-Power System Features
-·      Total Reactive Power
-·      Apparent Power
-·      Power Factor Ratio
-These engineered features provide additional information about the operational state of the power system.
 
-Model Development
-Multiple classification algorithms were evaluated and compared.
-Models explored include:
-·      Logistic Regression
-·      Random Forest Classifier
-·      XGBoost Classifier
-Hyperparameter tuning was performed to identify the best-performing model.
+```python
+hour_sin = sin(2π × hour / 24)
+hour_cos = cos(2π × hour / 24)
 
-Validation Strategy
-To simulate real-world deployment and avoid data leakage, a time-based validation strategy was used.
-·      Historical data used for training
-·      Last month of available data reserved as test data
-This approach evaluates the model’s ability to generalize to future unseen observations.
+month_sin = sin(2π × month / 12)
+month_cos = cos(2π × month / 12)
+```
 
-Evaluation Metrics
-Model performance was assessed using:
-·      Accuracy
-·      Precision
-·      Recall
-·      F1-Score
-·      Confusion Matrix
-These metrics provide a comprehensive evaluation of classification performance across all load categories.
+These transformations allow the model to better learn periodic patterns.
 
-Results
-The final selected model achieved strong classification performance on the hold-out test dataset and demonstrated its ability to distinguish between different power system load conditions.
-Feature engineering and temporal encoding significantly contributed to improving predictive performance.
+---
 
-Technologies Used
-Programming Language
-·      Python
-Libraries
-·      Pandas
-·      NumPy
-·      Matplotlib
-·      Seaborn
-·      Scikit-Learn
-·      XGBoost
-·      Joblib
-Development Environment
-·      Jupyter Notebook
+## 2. Weekend Indicator
 
-Project Structure
-├── load_type_prediction.ipynb ├── load_data.csv ├── README.md └── model_artifacts/
+```python
+is_weekend
+```
 
-How to Run
-1. Clone Repository
-git clone <repository-url> cd power-system-load-prediction
-2. Install Dependencies
-pip install -r requirements.txt
-3. Launch Notebook
+Captures differences in power consumption between weekdays and weekends.
+
+---
+
+## 3. Power System Features
+
+### Apparent Power
+
+Represents overall electrical load behavior.
+
+### Total Reactive Power
+
+```python
+Lagging Reactive Power + Leading Reactive Power
+```
+
+Provides information about the total reactive component of the system.
+
+### Power Factor Ratio
+
+Measures the relationship between lagging and leading power factors.
+
+---
+
+# 🤖 Machine Learning Models
+
+Multiple classification models were trained and compared:
+
+### Logistic Regression
+
+* Fast baseline model
+* Easy interpretability
+
+### Random Forest Classifier
+
+* Ensemble learning approach
+* Handles nonlinear relationships effectively
+
+### XGBoost Classifier
+
+* Gradient boosting algorithm
+* High predictive performance
+* Robust to complex feature interactions
+
+---
+
+# ✅ Validation Strategy
+
+To avoid data leakage and simulate real-world deployment:
+
+* Historical data used for training
+* Last month of observations used as the test set
+
+This time-based split ensures the model is evaluated on future unseen data.
+
+---
+
+# 📈 Evaluation Metrics
+
+The following classification metrics were used:
+
+* Accuracy
+* Precision
+* Recall
+* F1-Score
+* Confusion Matrix
+
+These metrics provide a comprehensive assessment of model performance across all load categories.
+
+---
+
+# 🏆 Results
+
+The final model successfully classified power system load conditions with high accuracy.
+
+Key achievements:
+
+* Effective temporal feature engineering
+* Strong classification performance
+* Successful handling of cyclical time patterns
+* Good generalization on unseen test data
+
+---
+
+# 📁 Project Structure
+
+```text
+Power-System-Load-Prediction/
+│
+├── load_type_prediction.ipynb
+├── load_data.csv
+├── README.md
+│
+└── model_artifacts/
+```
+
+---
+
+# 🚀 How to Run
+
+## 1. Clone Repository
+
+```bash
+git clone <repository-url>
+cd Power-System-Load-Prediction
+```
+
+## 2. Install Dependencies
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost joblib
+```
+
+## 3. Launch Jupyter Notebook
+
+```bash
 jupyter notebook
-4. Run All Cells
-Execute the notebook sequentially to:
-·      Load and preprocess data
-·      Perform EDA
-·      Train models
-·      Evaluate performance
-·      Generate predictions
+```
 
-Future Improvements
-·      Incorporate additional weather and environmental variables
-·      Experiment with deep learning architectures
-·      Deploy the model using FastAPI or Streamlit
-·      Implement real-time load prediction capabilities
+## 4. Run Notebook
 
-Author
-Yamini Singh
-M.Tech Computer Science Engineering
+Execute all cells in:
+
+```text
+load_type_prediction.ipynb
+```
+
+The notebook will:
+
+* Load data
+* Perform preprocessing
+* Generate engineered features
+* Train models
+* Evaluate performance
+* Produce predictions
+
+---
+
+# 🔮 Future Improvements
+
+Potential enhancements include:
+
+* Incorporating weather information
+* Real-time load prediction
+* Model deployment using FastAPI or Streamlit
+* Automated retraining pipeline
+* Explainable AI using SHAP values
+
+---
+
+# 👩‍💻 Author
+
+**Yamini Singh**
+
+M.Tech – Computer Science Engineering
+
 Machine Learning & Data Science Enthusiast
+
+---
+
+## Assignment Information
+
+This project was completed as part of a Machine Learning assessment focused on solving a real-world classification problem using industry-standard ML practices including preprocessing, feature engineering, model selection, validation, and evaluation.
