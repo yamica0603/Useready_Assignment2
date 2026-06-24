@@ -21,11 +21,6 @@ The solution follows a complete Machine Learning pipeline including:
 * Prediction and Interpretation
 
 ---
-
-# 🎯 Objective
-
-The objective is to accurately classify the operating load condition of a power system using historical power consumption data and electrical characteristics.
-
 Accurate load classification can help in:
 
 * Energy management
@@ -36,7 +31,7 @@ Accurate load classification can help in:
 
 ---
 
-# 📂 Dataset Description
+#  Dataset Description
 
 The dataset contains measurements collected from an industrial power system.
 
@@ -52,20 +47,14 @@ The dataset contains measurements collected from an industrial power system.
 | NSM                                  | Number of seconds from midnight |
 | Load_Type                            | Target variable                 |
 
-### Target Classes
-
-* Light_Load
-* Medium_Load
-* Maximum_Load
-
 ---
 
-# 🛠️ Technologies Used
+#  Technologies Used
 
 ### Programming Language
 
-* Python 3.x
-
+* Python
+  
 ### Libraries
 
 * Pandas
@@ -82,7 +71,7 @@ The dataset contains measurements collected from an industrial power system.
 
 ---
 
-# 📊 Exploratory Data Analysis (EDA)
+# Exploratory Data Analysis (EDA)
 
 EDA was performed to understand the dataset and identify patterns affecting load type.
 
@@ -98,7 +87,7 @@ The following analyses were conducted:
 
 ---
 
-# ⚙️ Feature Engineering
+# Feature Engineering
 
 Feature engineering was applied to improve model performance and capture temporal patterns.
 
@@ -161,34 +150,14 @@ Multiple classification models were trained and compared:
 
 ### Logistic Regression
 
-* Fast baseline model
-* Easy interpretability
-
 ### Random Forest Classifier
-
-* Ensemble learning approach
-* Handles nonlinear relationships effectively
 
 ### XGBoost Classifier
 
-* Gradient boosting algorithm
-* High predictive performance
-* Robust to complex feature interactions
-
 ---
 
-# ✅ Validation Strategy
 
-To avoid data leakage and simulate real-world deployment:
-
-* Historical data used for training
-* Last month of observations used as the test set
-
-This time-based split ensures the model is evaluated on future unseen data.
-
----
-
-# 📈 Evaluation Metrics
+#  Evaluation Metrics
 
 The following classification metrics were used:
 
@@ -202,17 +171,11 @@ These metrics provide a comprehensive assessment of model performance across all
 
 ---
 
-# 🏆 Results
+#  Results
 
-The final model successfully classified power system load conditions with high accuracy.
+The Random Forest Classifier emerged as the best-performing model, achieving an overall Accuracy of 95%, Weighted Precision of 95%, Weighted Recall of 95%, and Weighted F1-Score of 95% on the hold-out test set containing 2,977 observations.
 
-Key achievements:
-
-* Effective temporal feature engineering
-* Strong classification performance
-* Successful handling of cyclical time patterns
-* Good generalization on unseen test data
-
+Class-wise performance demonstrated strong predictive capability across all load categories, achieving F1-scores of 0.96 for Light_Load, 0.94 for Medium_Load, and 0.92 for Maximum_Load. The combination of cyclical time encoding, power-system-specific feature engineering, and ensemble learning enabled the model to effectively capture consumption patterns and generalize well to unseen future data.
 ---
 
 # 📁 Project Structure
@@ -258,15 +221,6 @@ Execute all cells in:
 load_type_prediction.ipynb
 ```
 
-The notebook will:
-
-* Load data
-* Perform preprocessing
-* Generate engineered features
-* Train models
-* Evaluate performance
-* Produce predictions
-
 ---
 
 # 🔮 Future Improvements
@@ -278,16 +232,6 @@ Potential enhancements include:
 * Model deployment using FastAPI or Streamlit
 * Automated retraining pipeline
 * Explainable AI using SHAP values
-
----
-
-# 👩‍💻 Author
-
-**Yamini Singh**
-
-M.Tech – Computer Science Engineering
-
-Machine Learning & Data Science Enthusiast
 
 ---
 
