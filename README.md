@@ -186,13 +186,12 @@ Power-System-Load-Prediction/
 ├── load_type_prediction.ipynb
 ├── load_data.csv
 ├── README.md
-│
-└── model_artifacts/
+
 ```
 
 ---
 
-# 🚀 How to Run
+#  How to Run
 
 ## 1. Clone Repository
 
@@ -223,7 +222,7 @@ load_type_prediction.ipynb
 
 ---
 
-# 🔮 Future Improvements
+#  Future Improvements
 
 Potential enhancements include:
 
@@ -233,8 +232,3 @@ Potential enhancements include:
 * Automated retraining pipeline
 * Explainable AI using SHAP values
 
----
-
-## Assignment Information
-
-This project was completed as part of a Machine Learning assessment focused on solving a real-world classification problem using industry-standard ML practices including preprocessing, feature engineering, model selection, validation, and evaluation.
